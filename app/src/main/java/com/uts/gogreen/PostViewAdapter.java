@@ -15,14 +15,14 @@ import java.util.List;
 
 public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHolder> {
     private List<Post> data = new ArrayList<>();
-    private AdapterView.OnItemLongClickListener onItemLongClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
 
     public void setData(List<Post> data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
-    public void setOnItemLongClickListener(AdapterView.OnItemLongClickListener onItemLongClickListener) {
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
         this.onItemLongClickListener = onItemLongClickListener;
     }
 
@@ -44,7 +44,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                onItemLongClickListener.onItemLongClick(v, pos);
+                onItemLongClickListener.onItemLongClick(v,pos);
                 return false;
             }
         });

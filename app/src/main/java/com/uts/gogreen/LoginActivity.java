@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                     binding.etPassword.setError("Password tdk boleh kosong");
                 }
                 if (bolehLogin){
-                    login(username,password);
+                    login(username, password);
                 }
             }
 
@@ -59,17 +59,18 @@ public class LoginActivity extends AppCompatActivity {
         binding.progressBar.setVisibility(View.VISIBLE);
         //memanggil API LOGIN
         APIService apilogin = Utility.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = apilogin.login("dirumahaja",username,password);
-        call.enqueue(new Callback<ValueNoData>() {
+        Call<ValueData<User>> call = apilogin.login(username, password);
+        call.enqueue(new Callback<ValueData<User>>() {
             @Override
-            public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
+            public void onResponse(Call<ValueData<User>> call, Response<ValueData<User>> response) {
                 if (response.code()==200){
                     int success = response.body().getSuccess();
                     String message = response.body().getMessage();
 
                     if (success == 1){
                         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-                        Utility.setValue(LoginActivity.this,"xUsername",username);
+                        Utility.setValue(LoginActivity.this,"xUserId", response.body().getData().getId());
+                        Utility.setValue(LoginActivity.this,"xUsername", username);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -81,8 +82,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
 
+
+
             @Override
-            public void onFailure(Call<ValueNoData> call, Throwable t) {
+            public void onFailure(Call<ValueData<User>> call, Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
                 System.out.println("Retrofit Error : "+ t.getMessage());
                 Toast.makeText(LoginActivity.this, "Retrofit error : "+ t.getMessage(), Toast.LENGTH_SHORT).show();

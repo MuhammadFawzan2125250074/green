@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         postViewAdapter = new PostViewAdapter();
-        postViewAdapter.setOnItemLongClickListener(new PostViewAdapter.OnItemLongClickListener() {
+        binding.rvPost.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvPost.setAdapter(postViewAdapter);
+        postViewAdapter.setOnItemLongClickListener(new PostViewAdapter.OnItemLongClickListener() { //updatePost
             @Override
             public void onItemLongClick(View v, int position) {
                 PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
@@ -53,32 +55,43 @@ public class MainActivity extends AppCompatActivity {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.action_edit:
-                                Intent intent = new Intent(MainActivity.this, UpdatePostActivity.class);
-                                intent.putExtra("EXTRA_DATA", data.get(position));
-                                startActivity(intent);
-                                return true;
-                            case R.id.action_delete:
-                                String id= data.get(position).getId();
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                                alertDialogBuilder.setTitle("Konfirmasi");
-                                alertDialogBuilder.setMessage("Yakin ingin menghapus post '" + data.get(position).getContent() + "' ?");
-                                alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        deletePost(id);
-                                    }
-                                });
-                                return true;
+                        int idMenu = item.getItemId();
+
+                        if(idMenu == R.id.action_edit) {
+                            Intent intent = new Intent(MainActivity.this, UpdatePostActivity.class);
+                            intent.putExtra("EXTRA_DATA", data.get(position));
+                            startActivity(intent);
+                            return true;
+                        }else if (idMenu == R.id.action_delete) {
+                            String id = data.get(position).getId();
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                            alertDialogBuilder.setTitle("Konfirmasi");
+                            alertDialogBuilder.setMessage("Yakin ingin menghapus postingan '" + data.get(position).getNamapohon() + "' ? " + data.get(position).getAlamat());
+                            alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    deletePost(id);
+                                }
+
+
+                            });
+                            alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                            return true;
+                        }else {
+                            return false;
                         }
-                        return false;
                     }
                 });
+                popupMenu.show();
             }
         });
-        binding.rvPost.setLayoutManager(new LinearLayoutManager(this));
-        binding.rvPost.setAdapter(postViewAdapter);
 
         binding.fabInput.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,14 +108,14 @@ public class MainActivity extends AppCompatActivity {
     private void getAllPost(){
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueData<List<Post>>> call = api.getPost("dirumahaja");
+        Call<ValueData<List<Post>>> call = api.getPost("");
         call.enqueue(new Callback<ValueData<List<Post>>>() {
             @Override
             public void onResponse(Call<ValueData<List<Post>>> call, Response<ValueData<List<Post>>> response) {
                 binding.progressBar.setVisibility(View.GONE);
 
                 if (response.code() == 200) {
-                    int success = response.body().getSuccessNah();
+                    int success = response.body().getSuccess();
                     String message = response.body().getMessage();
                     if (success == 1) {
                         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -126,6 +139,34 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    private void deletePost(String id) { //updatePost
+        APIService api = Utility.getRetrofit().create(APIService.class);
+        Call<ValueNoData> call = api.deletePost("",id);
+        call.enqueue(new Callback<ValueNoData>() {
+            @Override
+            public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
+                if(response.code()==200){
+                    int success = response.body().getSuccess();
+                    String message = response.body().getMessage();
+
+                    if (success == 1){
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                        getAllPost();
+                    }else{
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(MainActivity.this, "Response "+response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ValueNoData> call, Throwable t) {
+                System.out.println("Retrofit Errror : "+ t.getMessage());
+                Toast.makeText(MainActivity.this, "Retrofit Error : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     @Override
     protected void onResume() {
         super.onResume();

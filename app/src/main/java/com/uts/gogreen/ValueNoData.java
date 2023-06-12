@@ -7,13 +7,13 @@ public class ValueNoData {
     private int success;
 
     @SerializedName("message")
-    private int message;
+    private String message;
 
     public int getSuccess() {
         return success;
     }
 
-    public int getMessage() {
+    public String getMessage() {
         return message;
     }
 }

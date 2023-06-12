@@ -48,7 +48,7 @@ public class AddPostActivity extends AppCompatActivity {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = Utility.getRetrofit().create(APIService.class);
         Call<ValueNoData> call = api.addPost("", username,namapohon,alamat);
-        call.enque
+        call.enqueu
 
     }
 }
