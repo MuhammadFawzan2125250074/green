@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/bg3">
 
     <LinearLayout
         android:id="@+id/ll_login"
@@ -60,7 +61,8 @@
             android:text="Login"
             android:textAllCaps="true"
             android:layout_marginTop="16dp"
-
+            android:backgroundTint="#EDF1D6"
+            android:textColor="@color/black"
             />
         <Button
             android:id="@+id/btn_register"

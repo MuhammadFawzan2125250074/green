@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:layout_margin="16dp"
+    android:background="@drawable/bg3"
     >
     <LinearLayout
         android:id="@+id/ll_register"
@@ -76,6 +76,8 @@
             android:text="Register"
             android:layout_marginTop="16dp"
             android:textAllCaps="true"
+            android:backgroundTint="#EDF1D6"
+            android:textColor="@color/black"
             />
 
         <Button
