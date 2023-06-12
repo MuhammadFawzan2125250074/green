@@ -29,14 +29,14 @@
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_tempat"
+            android:id="@+id/til_alamat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:counterEnabled="true"
             android:layout_below="@id/til_namapohon"
             app:counterMaxLength="160">
             <EditText
-                android:id="@+id/et_tempat"
+                android:id="@+id/et_alamat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nama Tempat"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Post"
-            android:layout_below="@id/til_tempat"
+            android:layout_below="@id/til_alamat"
             android:layout_alignParentEnd="true"
             android:backgroundTint="#EDF1D6"
             android:textColor="@color/black"
