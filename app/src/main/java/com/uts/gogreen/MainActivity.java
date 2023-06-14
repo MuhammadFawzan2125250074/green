@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if(!Utility.checkValue(this,"xUsername")){
+        if(!Utility.checkValue(this,"xUserId")){
             Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
             finish();
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     private void getAllPost(){
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueData<List<Post>>> call = api.getPost("");
+        Call<ValueData<List<Post>>> call = api.getPost();
         call.enqueue(new Callback<ValueData<List<Post>>>() {
             @Override
             public void onResponse(Call<ValueData<List<Post>>> call, Response<ValueData<List<Post>>> response) {
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void deletePost(String id) { //updatePost
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.deletePost("",id);
+        Call<ValueNoData> call = api.deletePost(id);
         call.enqueue(new Callback<ValueNoData>() {
             @Override
             public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
@@ -182,13 +182,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.action_logout){
-            Utility.clearUser(MainActivity.this);
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        if (item.getItemId() == R.id.menu_about) {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_logout){
+            Utility.clearUser(this);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

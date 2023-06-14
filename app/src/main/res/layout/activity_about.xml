@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg3"
+    tools:context=".AboutActivity"
+    >
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Large"
+        android:id="@+id/judul_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:textSize="25dp"
+        android:text="KELOMPOK GoGreen"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="#00BCD4" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/judul_about"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/png_pohon" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="NAMA ANGGOTA KELOMPOK"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_marginTop="330dp"
+        android:textStyle="bold"
+        android:textColor="#00BCD4" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="MUHAMMAD FAWZAN"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:layout_marginTop="370dp"
+        android:textColor="#00BCD4" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="MIKHAEL ANRODIN SIMANJUNTAK"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_marginTop="400dp"
+        android:textColor="#00BCD4" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="MGS. M Rafli Djauhari"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_marginTop="430dp"
+        android:textColor="#00BCD4" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Aplikasi ini bertujuan untuk,
+ menciptakan atau menjadi tempat suatu komunitas,
+        yang bertujuan sebagai wadah komunitas itu sendiri."
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_marginTop="460dp"
+        android:textColor="#00BCD4" />
+
+</RelativeLayout>

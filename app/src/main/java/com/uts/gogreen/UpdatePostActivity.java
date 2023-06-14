@@ -25,6 +25,7 @@ public class UpdatePostActivity extends AppCompatActivity {
 
         binding = ActivityUpdatePostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportActionBar().setTitle("Edit");
 
         post = getIntent().getParcelableExtra("EXTRA_DATA");
         String id = post.getId();
