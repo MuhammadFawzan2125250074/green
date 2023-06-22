@@ -70,7 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (success == 1){
                         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                         Utility.setValue(LoginActivity.this,"xUserId", response.body().getData().getId());
-//                        Utility.setValue(LoginActivity.this,"xUsername", username);
+                        Utility.setValue(LoginActivity.this,"xUsername",username);
+//                        Utility.setValue(LoginActivity.this,"xUserId", username);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
